@@ -1,5 +1,7 @@
 #include <jni.h>
 #include <errno.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <android/log.h>
 #include <android_native_app_glue.h>
 
@@ -79,7 +81,26 @@ PyMODINIT_FUNC initandroidembed(void) {
     (void) Py_InitModule("androidembed", AndroidEmbedMethods);
 }
 
+// From: http://stackoverflow.com/a/9210960/798575
+int mkpath(char* file_path, mode_t mode) {
+    assert(file_path && *file_path);
+    char* p;
+    for (p=strchr(file_path+1, '/'); p; p=strchr(p+1, '/')) {
+        *p='\0';
+        LOGI("Trying to create '%s'", file_path);
+        if (mkdir(file_path, mode)==-1) {
+            if (errno!=EEXIST) {
+                *p='/';
+                return -1;
+            }
+        }
+        *p='/';
+    }
+    return 0;
+}
+
 int asset_extract(AAssetManager *am, char *src_file, char *dst_file) {
+    mkpath(dst_file, 0600);
     FILE *fhd = fopen(dst_file, "wb");
     if (fhd == NULL) {
         LOGW("Unable to open descriptor for %s (errno=%d:%s)",
