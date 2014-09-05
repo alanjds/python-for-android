@@ -51,9 +51,27 @@ static PyObject *androidembed_log(PyObject *self, PyObject *args) {
     Py_RETURN_NONE;
 }
 
+static PyObject *androidembed_asset_extract(PyObject *self, PyObject *args) {
+    char *asset_fn = NULL;
+    char *dest_fn = NULL;
+    AAssetManager *am = g_state->activity->assetManager;
+
+    if (!PyArg_ParseTuple(args, "ss", &asset_fn, &dest_fn)) {
+        return NULL;
+    }
+
+    if (asset_extract(am, asset_fn, dest_fn) < 0) {
+        LOGW("Unable to extract '%s' to '%s'", asset_fn, dest_fn);
+        return;
+    }
+
+    Py_RETURN_NONE;
+}
+
 static PyMethodDef AndroidEmbedMethods[] = {
     {"log", androidembed_log, METH_VARARGS, "Log on android platform"},
     {"poll", androidembed_poll, METH_VARARGS, "Poll the android events"},
+    {"asset_extract", androidembed_asset_extract, METH_VARARGS, "Extract assets"},
     {NULL, NULL, 0, NULL}
 };
 
