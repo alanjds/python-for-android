@@ -150,7 +150,7 @@ function get_directory() {
 }
 
 function push_arm() {
-	info "Entering in ARM enviromnent"
+	info "Entering in ARM environment"
 
 	# save for pop
 	export OLD_PATH=$PATH
@@ -283,7 +283,7 @@ function check_build_deps() {
     DIST=$(lsb_release -is)
 	info "Check build dependencies for $DIST"
     case $DIST in
-		Debian|Ubuntu)
+		Debian|Ubuntu|LinuxMint)
 			check_pkg_deb_installed "build-essential zlib1g-dev cython"
 			;;
 		*)
