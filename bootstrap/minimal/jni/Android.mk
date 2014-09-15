@@ -40,6 +40,6 @@ LOCAL_CFLAGS := \
 LOCAL_LDFLAGS := \
     -L$(LOCAL_PATH)/../../../build/python-install/lib
 
-#include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_SHARED_LIBRARY)
 
 $(call import-module,android/native_app_glue)
