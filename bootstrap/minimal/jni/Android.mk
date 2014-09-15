@@ -16,6 +16,7 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
+# Native activity
 LOCAL_MODULE    := native-activity
 LOCAL_SRC_FILES := main.c
 LOCAL_LDLIBS    := -lpython2.7 -ldl -llog -lz -landroid
@@ -26,5 +27,19 @@ LOCAL_LDFLAGS := \
     -L$(LOCAL_PATH)/../../../build/python-install/lib
 
 include $(BUILD_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+
+# Native service
+LOCAL_MODULE    := native-service
+LOCAL_SRC_FILES := service.c
+LOCAL_LDLIBS    := -lpython2.7 -ldl -llog -lz -landroid
+LOCAL_STATIC_LIBRARIES := android_native_app_glue
+LOCAL_CFLAGS := \
+    -I$(LOCAL_PATH)/../../../build/python-install/include/python2.7
+LOCAL_LDFLAGS := \
+    -L$(LOCAL_PATH)/../../../build/python-install/lib
+
+#include $(BUILD_SHARED_LIBRARY)
 
 $(call import-module,android/native_app_glue)
