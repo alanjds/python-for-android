@@ -108,7 +108,7 @@ public final class PythonService extends Service implements Runnable {
     }
 
     // Native part
-    public static native int nativeMain();
+    public native int nativeMain();
 
     //public static native void nativeInitJavaEnv();
 }

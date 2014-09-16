@@ -32,7 +32,7 @@ include $(CLEAR_VARS)
 
 # Native service
 LOCAL_MODULE    := native-service
-LOCAL_SRC_FILES := service.c
+LOCAL_SRC_FILES := service.cpp
 LOCAL_LDLIBS    := -lpython2.7 -ldl -llog -lz -landroid
 LOCAL_STATIC_LIBRARIES := android_native_app_glue
 LOCAL_CFLAGS := \
