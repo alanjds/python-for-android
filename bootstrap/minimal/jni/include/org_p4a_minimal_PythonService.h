@@ -12,8 +12,9 @@ extern "C" {
  * Method:    nativeMain
  * Signature: ()I
  */
-JNIEXPORT jint JNICALL Java_org_p4a_minimal_PythonService_nativeMain
-  (JNIEnv *, jobject);
+JNIEXPORT jint JNICALL Java_org_p4a_minimal_PythonService_nativeServiceStart
+  (JNIEnv *, jclass,
+   jstring, jstring, jstring, jstring, jobject);
 
 #ifdef __cplusplus
 }

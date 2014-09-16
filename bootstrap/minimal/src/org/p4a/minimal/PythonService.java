@@ -6,6 +6,7 @@ import android.app.Service;
 
 import android.content.Intent;
 import android.content.Context;
+import android.content.res.AssetManager;
 
 import android.os.Bundle;
 import android.os.IBinder;
@@ -98,17 +99,24 @@ public final class PythonService extends Service implements Runnable {
         Log.i("python service", "run() called");
 
         this.mService = this;
-        //nativeInitJavaEnv();
-        //nativeStart(androidPrivate, androidArgument, pythonHome, pythonPath,
-        //        pythonServiceArgument);
 
-        nativeMain();
+        nativeServiceStart(
+            getPackageCodePath(),
+            getApplicationInfo().nativeLibraryDir,
+            getFilesDir().getAbsolutePath(),
+            //getExternalFilesDir().getAbsolutePath(),
+            getFilesDir().getAbsolutePath(),
+            getAssets()
+        );
 
         Log.i("python service", "run() ended");
     }
 
     // Native part
-    public native int nativeMain();
-
+    public static native int nativeServiceStart(String packageCodePath,
+                                                String nativeLibraryDir,
+                                                String filesDir,
+                                                String externalFilesDir,
+                                                AssetManager assets);
     //public static native void nativeInitJavaEnv();
 }
