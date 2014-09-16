@@ -6,6 +6,9 @@
 
 #include "include/org_p4a_minimal_PythonService.h"
 
+#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "python service", __VA_ARGS__))
+#define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "python service", __VA_ARGS__))
+
 extern "C" {
     #include "utils.c"
 }
@@ -71,7 +74,7 @@ JNIEXPORT jint JNICALL Java_org_p4a_minimal_PythonService_nativeServiceStart(JNI
     char * argv[2];
     argc = 2;
     argv[0] = "_bootstrap.py";
-    argv[1] = "service";
+    argv[1] = "service/main";
 
     PySys_SetArgv(argc, argv);
 

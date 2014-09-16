@@ -1,6 +1,9 @@
 #include <jni.h>
 #include <android_native_app_glue.h>
 
+#define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "python", __VA_ARGS__))
+#define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "python", __VA_ARGS__))
+
 #include "utils.c"
 
 
